@@ -23,8 +23,10 @@ TOKEN_TEST = os.getenv('DISCORD_TOKEN_TEST')
 GUILD = os.getenv('DISCORD_GUILD')
 KYODA_ID = 583386313466708035
 FORCEPS_ID = 173202312762884096
+STORM_ID = 483307383339089920
 BOT_OPERATOR_ROLE = "Technical Commander"
 embed_color = 0xBF502E
+credit_emoji = '<:credits:937788738950545464>'
 
 
 def startup(START):
@@ -85,8 +87,7 @@ def credit_counter(role_names, discord_id):
 @commands.has_role('Economy Admin')
 async def add(ctx, user: discord.Member, message):
     role_names = [str(r) for r in user.roles]
-
-    credit_emoji = '<:credits:937788738950545464>'
+    
     var_credit_value = merit_config.add_credits(user.id, int(message))
     role_credit_value = credit_counter(role_names, user.id)
     mention = format(f"<@!{user.id}>")
@@ -106,7 +107,6 @@ async def sub_merits(ctx, user: discord.Member, message):
     if ctx.author.id == KYODA_ID or FORCEPS_ID:
         role_names = [str(r) for r in user.roles]
 
-        credit_emoji = '<:credits:937788738950545464>'
         var_credit_value = merit_config.subtract_merits(user.id, int(message))
         role_credit_value = credit_counter(role_names, user.id)
         mention = format(f"<@!{user.id}>")
@@ -125,7 +125,6 @@ async def sub_merits(ctx, user: discord.Member, message):
 async def remove(ctx, user: discord.Member, message):
     role_names = [str(r) for r in user.roles]
 
-    credit_emoji = '<:credits:937788738950545464>'
     var_credit_value = merit_config.remove_credits(user.id, int(message))
     role_credit_value = credit_counter(role_names, user.id)
     mention = format(f"<@!{user.id}>")
@@ -145,7 +144,6 @@ async def sub_demerits(ctx, user: discord.Member, message):
     if ctx.author.id == KYODA_ID or FORCEPS_ID:
         role_names = [str(r) for r in user.roles]
 
-        credit_emoji = '<:credits:937788738950545464>'
         var_credit_value = merit_config.subtract_demerits(user.id, int(message))
         role_credit_value = credit_counter(role_names, user.id)
         mention = format(f"<@!{user.id}>")
@@ -166,7 +164,6 @@ async def thing_for_roles(ctx):
         user_id = str(ctx.author.id)
         mention = format(f"<@!{ctx.author.id}>")
 
-        credit_emoji = '<:credits:937788738950545464>'
         credit_value = credit_counter(role_names, user_id)
 
         if credit_value == False:
@@ -198,7 +195,6 @@ async def remove(ctx, user: discord.Member):
     role_names = [str(r) for r in user.roles]
     mention = format(f"<@!{user.id}>")
 
-    credit_emoji = '<:credits:937788738950545464>'
     credit_value = credit_counter(role_names, user.id)
 
     if credit_value == False:
@@ -223,7 +219,6 @@ async def identify(ctx, user: discord.Member):
     role_names = [str(r) for r in user.roles]
     mention = format(f"<@!{user.id}>")
 
-    credit_emoji = '<:credits:937788738950545464>'
     credit_value = credit_counter(role_names, user.id)
     credit_value_raw = role_counter.credit_counter(role_names)
 
@@ -269,7 +264,6 @@ async def who_am_i(ctx):
     if ctx.channel.id == '936902313589764146' or '939028644175699968':
         channel = await ctx.author.create_dm()
         role_names = [str(r) for r in ctx.author.roles]
-        credit_emoji = '<:credits:937788738950545464>'
         credit_value = credit_counter(role_names, ctx.author.id)
         credit_value_raw = role_counter.credit_counter(role_names)
 
@@ -347,7 +341,6 @@ async def store(ctx, message):
     if ctx.channel.id == '936902313589764146' or '939028644175699968':
         store_key_list = ["1", "2", "3", "4", "5", "6", "7", "8"]
         store_key_list_all = ["0"]
-        credit_emoji = '<:credits:937788738950545464>'
         credit_emoji_all = '["7]'
 
         if message in store_key_list or store_key_list_all:
@@ -380,7 +373,6 @@ async def store(ctx, message):
 
 @store.error
 async def store_error(ctx, error):
-    credit_emoji = '<:credits:937788738950545464>'
 
     if isinstance(error, discord.ext.commands.errors.MissingRequiredArgument):
         embed = discord.Embed(
@@ -421,7 +413,6 @@ async def credit_diag(ctx, message):
         role_names = [str(r) for r in ctx.author.roles]
         credit_diag_key_list = ["1", "2", "3"]
         credit_diag_key_list_all = ["0"]
-        credit_emoji = '<:credits:937788738950545464>'
         credit_emoji_all = '["7]'
 
         if message in credit_diag_key_list or credit_diag_key_list_all:
